@@ -9,91 +9,123 @@
     <link rel="stylesheet" href="../static/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<body>
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<div>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-<div id="topmargin">
-    <div id="margintext">
-    <h3>Test assignment </h3>
-</div>
-</div>
-<ul>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#Info">About</a></li>
-    <li><a href="#home">Home</a></li>
-</ul>
-<div class="blockouter">
-    <div class="container pt-3 bg-gradient-dark">
+    <div id="topmargin">
+        <div id="margintext">
+            <h3>Test assignment </h3>
+        </div>
+    </div>
+    <ul>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#Info">About</a></li>
+        <li><a href="#home">Home</a></li>
+    </ul>
 
-        <div id="info" class="sidenav">
-            <h4> <strong>Information of the chart:</strong> </h4>
-            <div id="linfo">
-                <p id="fattr"></p>
-                <p id="secattr"></p>
-                <p id="slice_size"></p>
+    <div class="container-fluid pt-3 bg-gradient-dark">
+        <div class="row">
+            <div class="col-sm-2">
+                <br>
+                <p> Select the slice to plot:</p>
+                <select id="slicelist">
+                    <option value= "select value">Select Value</option>
+                </select><br><br>
+                <div id="info" class="sidenav">
+                    <h4><strong>Information of the chart:</strong></h4>
+
+                    <p id="fattr"></p>
+                    <p id="secattr"></p>
+                    <p id="slice_size"></p>
+                    <p id="score"></p>
+                    <p id="slice"></p>
+                </div>
+
             </div>
-            <div id="rinfo">
-                <p id="score"></p>
-                <p id="slice"></p>
+            <div class="col-sm-10">
+                <div id="block">
+                    <h3 id="title"></h3>
+                    <figure class="highcharts-figure">
+                        <div id="container1">
+                        </div>
+                        <div id="btngroup">
+                            <button type="button" id="previous" class="btn btn-info">Previous</button>
+                            <button type="button" id="next" class="btn btn-info pull-right">Next</button>
+                            <br>
+                        </div>
+                        <br>
+                    </figure>
+                </div>
             </div>
         </div>
-
-    <div id="block">
-        <h3 id="title"></h3>
-        <figure class="highcharts-figure">
-            <div id="container1">
-            </div>
-            <div id="btngroup">
-                 <button type="button" id="previous" class="btn btn-info">Previous</button>
-                <button type="button" id="next" class="btn btn-info pull-right">Next</button><br>
-            </div>
-            <br>
-        </figure>
-    </div>
         <script>
         var chartdata= {{ data|tojson }};
 
+
+
+
+
         </script>
         <script type="text/javascript" src="{{url_for('static', filename='charts.js')}}"></script>
-
     </div>
 </div>
 <script>
     if(index == 0 ){
         $('#previous').addClass('disabled');
         }
+
     document.getElementById("previous").onclick = function(){
+    $('select').prop('selectedIndex',0);
+    console.log(index);
+        if(index >0 )
+        {  index= parseInt(index) -1;
 
-
-       if(index < 0 ){
-        $('#previous').addClass('disabled');
-        }
-        else{
-            index= index -1;
-            $('#previous').removeClass('disabled');
             plotbar(index);
+             console.log(index);
         }
+        if(index < 1){
+             $('#previous').addClass('disabled');
+             }
         if(index+1 != chartdata.length){
             $('#next').removeClass('disabled');
         }
-            console.log(index);
-};
+}
 document.getElementById("next").onclick = function(){
-
-    if(index ==  no_charts-1){
+    $('select').prop('selectedIndex',0);
+    if(parseInt(index) + 2 >=  no_charts){
+        console.log("next index..."+index);
         $('#next').addClass('disabled');
+        $('#previous').addClass('disabled');
     }
-    index = index+1;
-    console.log(index);
+    if(index < no_charts){
+    index = parseInt(index) + 1;
     plotbar(index);
       if(index > 0 ){
             $('#previous').removeClass('disabled');
         }
+    }
+    }
+document.getElementById("slicelist").onclick = function(){
+        var val = document.getElementById("slicelist");
+        var chartval = val.options[val.selectedIndex].value;
+        index = chartval;
+        console.log("list" + index);
+        if(parseInt(index) +1 == no_charts){
+                $('#next').addClass('disabled');
+                $('#previous').removeClass('disabled');
+            }else if (index == 0){
+                 $('#previous').addClass('disabled');
+                $('#next').removeClass('disabled');
+            }
+            else{
+        plotbar(index);
+        }
+    }
 
-    };
+
 
 
 
