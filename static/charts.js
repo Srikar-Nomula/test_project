@@ -1,16 +1,21 @@
 
-//console.log(chartdata);
-//console.log(chartdata);
+
 // data manipulations
 var no_charts = chartdata.length;
-for (i =0 ;i < no_charts ; i++){
-    currentdata= chartdata[i];
-    first_attr= chartdata[i].firstattr;
-}
 index =0;
 plotbar(index);
 
+var select = document.getElementById("slicelist");
+
+for(var i=0;i<no_charts; i++){
+    var label = chartdata[i].slice;
+    var ele =  document.createElement("option");
+    ele.textContent = label;
+    ele.value = i;
+    select.appendChild(ele);
+}
 function plotbar(index){
+    console.log("plotbar " + index);
     first_attr = chartdata[index].first_attr;
     second_attr= chartdata[index].second_attr;
     slice_size = chartdata[index].slice_size;
@@ -33,6 +38,11 @@ function plotbar(index){
         slicedata = "None";
         }
     document.getElementById("slice").innerHTML=" Slice : " + slicedata;
+    if(index >0 && index< chartdata.length-1){
+        $('#previous').removeClass('disabled');
+         $('#next').removeClass('disabled');
+        }
+
     plotchart();
 
 }
@@ -63,7 +73,7 @@ Highcharts.chart('container1', {
     yAxis: {
         min: 0,
         title: {
-            text: Values
+            text: "Values"
         }
     },
     tooltip: {
