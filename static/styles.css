@@ -1,0 +1,73 @@
+
+body {
+  background-color: #f2f2f2;
+  height:100%;
+}
+#block{
+padding-left:7%;
+}
+#title{
+    text-align:center;
+    background-color: #e6e6ff;
+    font-family:Palatino;
+    font-weight: bold;
+    padding:15px;
+    font-size: 20px;
+
+}
+.sidenav {
+  width: 15%;
+  position: fixed;
+  z-index: 1;
+  top: 200px;
+  left: 15px;
+  background: #c7d9eb;
+  padding: 10px;
+  font-size: 16px;
+  font-family: Arial;
+  border-radius:15px;
+}
+
+
+@media screen and (max-height: 100%) {
+  .sidenav {padding-top: 50px;}
+
+}
+#margintext{
+color:  #2d5986;
+}
+
+#topmargin {
+
+    margin-left: 60px;
+    height:50px;
+
+}
+
+li:first-child {
+  border-left: none;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 10;
+  overflow: hidden;
+  width:100%;
+  background-color: #333;
+}
+
+li {
+  float: right;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  width:100%;
+  text-decoration: none;
+}
+a:hover{
+    background-color: white;
+}

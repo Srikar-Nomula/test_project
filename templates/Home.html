@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+<div id="topmargin">
+    <div id="margintext">
+    <h3>Test assignment </h3>
+</div>
+</div>
+<ul>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#Info">About</a></li>
+    <li><a href="#home">Home</a></li>
+</ul>
+<div class="blockouter">
+    <div class="container pt-3 bg-gradient-dark">
+
+        <div id="info" class="sidenav">
+            <h4> <strong>Information of the chart:</strong> </h4>
+            <div id="linfo">
+                <p id="fattr"></p>
+                <p id="secattr"></p>
+                <p id="slice_size"></p>
+            </div>
+            <div id="rinfo">
+                <p id="score"></p>
+                <p id="slice"></p>
+            </div>
+        </div>
+
+    <div id="block">
+        <h3 id="title"></h3>
+        <figure class="highcharts-figure">
+            <div id="container1">
+            </div>
+            <div id="btngroup">
+                 <button type="button" id="previous" class="btn btn-info">Previous</button>
+                <button type="button" id="next" class="btn btn-info pull-right">Next</button><br>
+            </div>
+            <br>
+        </figure>
+    </div>
+        <script>
+        var chartdata= {{ data|tojson }};
+
+        </script>
+        <script type="text/javascript" src="{{url_for('static', filename='charts.js')}}"></script>
+
+    </div>
+</div>
+<script>
+    if(index == 0 ){
+        $('#previous').addClass('disabled');
+        }
+    document.getElementById("previous").onclick = function(){
+
+
+       if(index < 0 ){
+        $('#previous').addClass('disabled');
+        }
+        else{
+            index= index -1;
+            $('#previous').removeClass('disabled');
+            plotbar(index);
+        }
+        if(index+1 != chartdata.length){
+            $('#next').removeClass('disabled');
+        }
+            console.log(index);
+};
+document.getElementById("next").onclick = function(){
+
+    if(index ==  no_charts-1){
+        $('#next').addClass('disabled');
+    }
+    index = index+1;
+    console.log(index);
+    plotbar(index);
+      if(index > 0 ){
+            $('#previous').removeClass('disabled');
+        }
+
+    };
+
+
+
+</script>
+
+</body>
+
+</html>
