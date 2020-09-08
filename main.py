@@ -5,7 +5,7 @@ import pandas as pd
 from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
-data = pd.read_csv('C:\\Users\\Srikar Reddy\\Downloads\\allergyBoundelss.csv')
+data = pd.read_csv('allergyBoundelss.csv')
 
 
 @app.route('/')
